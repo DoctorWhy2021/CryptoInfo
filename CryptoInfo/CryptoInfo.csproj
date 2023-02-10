@@ -7,4 +7,19 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="Core" />
+      <Folder Include="Fonts" />
+      <Folder Include="MVVM\Model" />
+      <Folder Include="MVVM\View" />
+      <Folder Include="MVVM\ViewModel" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Fonts\Itim-Regular.ttf" />
+      <Resource Include="Fonts\Itim-Regular.ttf" />
+      <None Remove="Images\change_theme.png" />
+      <Resource Include="Images\change_theme.png" />
+    </ItemGroup>
+
 </Project>

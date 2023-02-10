@@ -5,8 +5,97 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoInfo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="MainWindow" Height="700" Width="1000"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <Border MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                <GradientStop Color="#051e3e" Offset="0.0"/>
+                <GradientStop Color="#251e3e" Offset="0.3"/>
+                <GradientStop Color="#451e3e" Offset="0.6"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.12*" />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
+                    Grid.Column="0"
+                    BorderBrush="#2e003e"
+                    BorderThickness="0,0,0,0.5"
+                    Grid.ColumnSpan="2"/>
+            <TextBlock Text="CryptoInfo"
+                       Foreground="White"
+                       FontSize="18"
+                       FontWeight="Medium"
+                       FontFamily="/Fonts/#Itim"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            <Border Grid.Row="1"
+                    Grid.Column="0"
+                    BorderBrush="#2e003e"
+                    BorderThickness="0,0,0.5,0"/>
+            
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Margin="0,0,15,0">
+                <Button Width="30"
+                        Height="30"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Margin="0,0,5,0">
+                    <Image Source="Images/change_theme.png"/>
+                </Button>
+                
+                    <Button Width="30"
+                            Height="30"
+                            Content="🗕"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontSize="20"
+                            Margin="0,0,5,0"
+                            x:Name="Minimize"
+                            Click="Minimize_OnClick"/>
+                
+                <Button Width="30"
+                        Height="30"
+                        Content="✘"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="White"
+                        FontSize="20"
+                        Margin="0,0,5,0"
+                        x:Name="Close"
+                        Click="Close_OnClick"/>
+                
+            </StackPanel>
+            
+            <StackPanel Grid.Row="1"
+                        Grid.Column="0">
+                
+                <RadioButton Content="Main"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Height="50"
+                             FontSize="20"/>
+                <RadioButton Content="Exchange"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Height="50"
+                             FontSize="20"/>
+                
+            </StackPanel>
+            
+        </Grid>
+    </Border>
 </Window>
