@@ -16,7 +16,8 @@
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Right"
                                        Margin="0,0,10,0"
-                                       FontFamily="/Fonts/#Itim"/>
+                                       FontFamily="/Fonts/#Itim"
+                                       Foreground="White"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -25,7 +26,10 @@
         
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value=" #22202f"></Setter>
+                <Setter Property="Background" Value=" #04152C"></Setter>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="False">
+                <Setter Property="Background" Value=" Transparent"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>

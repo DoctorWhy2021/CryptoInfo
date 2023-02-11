@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoInfo"
+        xmlns:viewModel="clr-namespace:CryptoInfo.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000"
         AllowsTransparency="True"
@@ -11,6 +12,9 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
     <Border MouseLeftButtonDown="UIElement_OnMouseLeftButtonDown">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
@@ -21,11 +25,11 @@
         </Border.Background>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.12*" />
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Border Grid.Row="0"
@@ -34,7 +38,7 @@
                     BorderThickness="0,0,0,0.5"
                     Grid.ColumnSpan="2"/>
             <TextBlock Text="CryptoInfo"
-                       Foreground="White"
+                       Foreground="DarkGray"
                        FontSize="18"
                        FontWeight="Medium"
                        FontFamily="/Fonts/#Itim"
@@ -88,14 +92,20 @@
                 <RadioButton Content="Main"
                              Style="{StaticResource MenuButtonTheme}"
                              Height="50"
-                             FontSize="20"/>
+                             FontSize="20"
+                             IsChecked="True"
+                             Command="{Binding MainPageViewCommand}"/>
                 <RadioButton Content="Exchange"
                              Style="{StaticResource MenuButtonTheme}"
                              Height="50"
-                             FontSize="20"/>
+                             FontSize="20"
+                             Command="{Binding ExchangeViewCommand}"/>
                 
             </StackPanel>
-            
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentView }"/>
         </Grid>
     </Border>
 </Window>

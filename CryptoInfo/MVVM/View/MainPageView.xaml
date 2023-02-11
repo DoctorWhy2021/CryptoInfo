@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="CryptoInfo.MVVM.View.MainPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CryptoInfo.MVVM.View"
+             mc:Ignorable="d"
+             d:DesignHeight="650" d:DesignWidth="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0"
+                Background="#2C234A"
+                CornerRadius="10"
+                Margin="10">
+                <TextBlock Text="First Block"
+                           Foreground="White"
+                           FontSize="30"
+                           FontFamily="/Fonts/#Itim"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+        </Border>
+        <Border Grid.Row="1"
+                Background="#2C234A"
+                CornerRadius="10"
+                Margin="10">
+            <TextBlock Text="Second Block"
+                       Foreground="White"
+                       FontSize="30"
+                       FontFamily="/Fonts/#Itim"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Border>
+        <Border Grid.Row="2"
+                Background="#2C234A"
+                CornerRadius="10"
+                Margin="10">
+            <TextBlock Text="Third Block"
+                       Foreground="White"
+                       FontSize="30"
+                       FontFamily="/Fonts/#Itim"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Border>
+        <Border Grid.Row="3"
+                Background="#2C234A"
+                CornerRadius="10"
+                Margin="10">
+            <TextBlock Text="Fourth Block"
+                       Foreground="White"
+                       FontSize="30"
+                       FontFamily="/Fonts/#Itim"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+        </Border>
+    </Grid>
+</UserControl>
