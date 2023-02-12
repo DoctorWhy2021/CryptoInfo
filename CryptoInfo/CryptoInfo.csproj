@@ -9,7 +9,6 @@
 
     <ItemGroup>
       <Folder Include="Fonts" />
-      <Folder Include="MVVM\Model" />
     </ItemGroup>
 
     <ItemGroup>
@@ -17,6 +16,10 @@
       <Resource Include="Fonts\Itim-Regular.ttf" />
       <None Remove="Images\change_theme.png" />
       <Resource Include="Images\change_theme.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     </ItemGroup>
 
 </Project>

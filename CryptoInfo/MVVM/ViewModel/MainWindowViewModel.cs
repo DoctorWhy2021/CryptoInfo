@@ -24,6 +24,7 @@ public class MainWindowViewModel: ObservableObject
     
     public MainWindowViewModel()
     {
+        APIHelper.InitializeClient();
         MainPageVM = new MainPageViewModel();
         ExchangeVM = new ExchangeViewModel();
         CurrentView = MainPageVM;

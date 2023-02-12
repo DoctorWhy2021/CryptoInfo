@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CryptoInfo.MVVM.View"
+             xmlns:viewModel="clr-namespace:CryptoInfo.MVVM.ViewModel"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="900">
+    <UserControl.DataContext>
+        <viewModel:MainPageViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -18,13 +22,58 @@
         <Border Grid.Row="0"
                 Background="#2C234A"
                 CornerRadius="10"
-                Margin="10">
-                <TextBlock Text="First Block"
-                           Foreground="White"
-                           FontSize="30"
-                           FontFamily="/Fonts/#Itim"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"/>
+                Margin="10"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.RowSpan="2"
+                           Source="{Binding CoinsList[0].Small}"/>
+                    <StackPanel Grid.Row="0"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                        <TextBlock 
+                            Text="Name: "
+                            Foreground="White"
+                            FontSize="20"
+                            FontFamily="/Fonts/#Itim"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"/>
+                        <TextBlock 
+                            Text="{Binding CoinsList[0].Id}"
+                            Foreground="White"
+                            FontSize="20"
+                            FontFamily="/Fonts/#Itim"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="1"
+                                Orientation="Horizontal">
+                        <TextBlock 
+                            Text="Price in BTC: "
+                            Foreground="White"
+                            FontSize="20"
+                            FontFamily="/Fonts/#Itim"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"/>
+                        <TextBlock 
+                            Text="{Binding CoinsList[0].Price_btc}"
+                            Foreground="White"
+                            FontSize="20"
+                            FontFamily="/Fonts/#Itim"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </Grid>
         </Border>
         <Border Grid.Row="1"
                 Background="#2C234A"
