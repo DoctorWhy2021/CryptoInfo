@@ -12,101 +12,115 @@
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0"
-                Background="#2C234A"
-                CornerRadius="10"
-                Margin="10"
-                >
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="100"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Image Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.RowSpan="2"
-                           Source="{Binding CoinsList[0].Small}"/>
-                    <StackPanel Grid.Row="0"
-                                Grid.Column="1"
-                                Orientation="Horizontal">
-                        <TextBlock 
-                            Text="Name: "
-                            Foreground="White"
-                            FontSize="20"
-                            FontFamily="/Fonts/#Itim"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"/>
-                        <TextBlock 
-                            Text="{Binding CoinsList[0].Id}"
-                            Foreground="White"
-                            FontSize="20"
-                            FontFamily="/Fonts/#Itim"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="1"
-                                Grid.Column="1"
-                                Orientation="Horizontal">
-                        <TextBlock 
-                            Text="Price in BTC: "
-                            Foreground="White"
-                            FontSize="20"
-                            FontFamily="/Fonts/#Itim"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"/>
-                        <TextBlock 
-                            Text="{Binding CoinsList[0].Price_btc}"
-                            Foreground="White"
-                            FontSize="20"
-                            FontFamily="/Fonts/#Itim"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"/>
-                    </StackPanel>
-                </Grid>
-        </Border>
-        <Border Grid.Row="1"
-                Background="#2C234A"
-                CornerRadius="10"
-                Margin="10">
-            <TextBlock Text="Second Block"
-                       Foreground="White"
-                       FontSize="30"
-                       FontFamily="/Fonts/#Itim"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
-        </Border>
-        <Border Grid.Row="2"
-                Background="#2C234A"
-                CornerRadius="10"
-                Margin="10">
-            <TextBlock Text="Third Block"
-                       Foreground="White"
-                       FontSize="30"
-                       FontFamily="/Fonts/#Itim"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
-        </Border>
-        <Border Grid.Row="3"
-                Background="#2C234A"
-                CornerRadius="10"
-                Margin="10">
-            <TextBlock Text="Fourth Block"
-                       Foreground="White"
-                       FontSize="30"
-                       FontFamily="/Fonts/#Itim"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
-        </Border>
+        <TextBlock Grid.Row="0"
+                   Text="Top 10 Cryptocurrencys"
+                   FontFamily="/Fonts/#Itim"
+                   FontSize="30"
+                   Foreground="White"/>
+            <ItemsControl Grid.Row="1"
+                          ItemsSource="{Binding CoinsList}"
+                          Foreground="White"
+                          FontFamily="/Fonts/#Itim">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter/>
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#2C234A"
+                                CornerRadius="15"
+                                Margin="5"
+                                Height="70"
+                                >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="85"/>
+                                    <ColumnDefinition Width="210"/>
+                                    <ColumnDefinition Width="130"/>
+                                    <ColumnDefinition Width="140"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <!-- Coin Image -->
+                                <Image Grid.Row="0"
+                                       Grid.Column="0"
+                                       Grid.RowSpan="2"
+                                       Margin="5"
+                                       Source="{Binding image}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"/>
+                                <!-- Name and Price -->
+                                <StackPanel Grid.Row="0"
+                                            Grid.Column="1"
+                                            Orientation="Horizontal">
+                                    <TextBlock Text="{Binding name}"
+                                               FontSize="20"
+                                               FontWeight="Bold"
+                                               Margin="0,0,5,0"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"/>
+                                    <TextBlock Text="{Binding symbol}"
+                                               FontSize="15"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1"
+                                            Grid.Column="1"
+                                            Orientation="Horizontal">
+                                    <TextBlock Text="Current Price:"
+                                               FontSize="18"
+                                               Margin="0,0,5,0"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"/>
+                                    <TextBlock FontSize="18"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Left"
+                                               Text="{Binding current_price, StringFormat={}{0:c1}}"/>
+                                </StackPanel>
+                                <!-- Changes 24h in percentage -->
+                                <TextBlock Text="Changes 24h"
+                                           Grid.Row="0"
+                                           Grid.Column="2"
+                                           FontSize="18"
+                                           FontWeight="Bold"
+                                           Margin="0,0,5,0"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock FontSize="18"
+                                           Grid.Row="1"
+                                           Grid.Column="2"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           Text="{Binding StringFormat={}{0}% ,Path= price_change_percentage_24h}"/>
+                                <!-- 24h Volume -->
+                                <TextBlock Text="24h Volume"
+                                           Grid.Row="0"
+                                           Grid.Column="3"
+                                           FontSize="18"
+                                           FontWeight="Bold"
+                                           Margin="0,0,5,0"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock FontSize="18"
+                                           Grid.Row="1"
+                                           Grid.Column="3"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Text="{Binding StringFormat={}{0:C0} ,Path= total_volume}"/>
+                                
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        
     </Grid>
 </UserControl>
