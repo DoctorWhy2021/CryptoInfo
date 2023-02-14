@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="CryptoInfo.MVVM.View.CoinDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CryptoInfo.MVVM.View"
+             mc:Ignorable="d"
+             d:DesignHeight="650" d:DesignWidth="900">
+    <Grid>
+        <StackPanel HorizontalAlignment="Left">
+            <Border Background="DarkGray"
+                    Width="55"
+                    Padding="5"
+                    CornerRadius="8"
+                    Margin="2,0,0,5"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    >
+                <TextBlock Text="Rank #1"
+                           FontFamily="/Fonts/#Itim"
+                           FontWeight="Medium"
+                           Foreground="White"/>
+            </Border>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,10">
+                <Image Width="30"
+                       HorizontalAlignment="Left"
+                       Source="https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579"/>
+                <TextBlock Text="Bitcoin"
+                           Margin="0,0,5,0"
+                           FontSize="20"
+                           Foreground="White"
+                           FontFamily="/Fonts/#Itim"
+                           VerticalAlignment="Center"/>
+                <TextBlock Text="BTC"
+                           FontSize="14"
+                           Foreground="DarkGray"
+                           FontFamily="/Fonts/#Itim"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,0,0,10">
+                <TextBlock Text="22152"
+                           Margin="0,0,5,0"
+                           FontSize="25"
+                           Foreground="White"
+                           FontFamily="/Fonts/#Itim"
+                           VerticalAlignment="Center"
+                           x:Name="CurrentPrice"/>
+                <TextBlock Text="2.7%"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           Foreground="Green"
+                           FontFamily="/Fonts/#Itim"
+                           VerticalAlignment="Center"/>
+            </StackPanel>
+            <TextBlock Text="1.000000 BTC"
+                       Margin="0,0,0,10"
+                       FontWeight="Bold"
+                       FontSize="14"
+                       Foreground="DarkGray"
+                       FontFamily="/Fonts/#Itim"
+                       VerticalAlignment="Center"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ProgressBar Grid.Row="0"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Minimum="{Binding ElementName=Min24h,Path=Text}"
+                             Maximum="{Binding ElementName=Max24h, Path=Text}"
+                             Value="{Binding ElementName=CurrentPrice,Path=Text}"
+                             Height="10" Width="200"/>
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="21500"
+                           Foreground="White"
+                           x:Name="Min24h"/>
+                <TextBlock Grid.Row="1"
+                           Grid.Column="1"
+                           Text="24h Range"
+                           HorizontalAlignment="Center"
+                           Foreground="White"/>
+                <TextBlock Grid.Row="1"
+                           Grid.Column="2"
+                           HorizontalAlignment="Right"
+                           Text="22400"
+                           Foreground="White"
+                           x:Name="Max24h"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -148,6 +148,11 @@
                              Height="50"
                              FontSize="20"
                              Command="{Binding ExchangeViewCommand}"/>
+                <RadioButton Content="Details"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Height="50"
+                             FontSize="20"
+                             Command="{Binding CoinDetailViewCommand}"/>
                 
             </StackPanel>
             <ContentControl Grid.Row="1"

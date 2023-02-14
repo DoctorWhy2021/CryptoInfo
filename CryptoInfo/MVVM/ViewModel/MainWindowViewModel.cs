@@ -15,11 +15,15 @@ public class MainWindowViewModel: ObservableObject
     public ObservableCollection<ShortCoinModel> CoinsList { get; set; }
 
     private MainPageViewModel MainPageVM { get; set; }
-    private ExchangeViewModel ExchangeVM { get; set; }
+    private ExchangeViewModel ExchangeVM { get; set; } 
+    private CoinDetailViewModel CoinDetailVM { get;}
+
 
 
     public RelayCommand MainPageViewCommand { get; set; }
     public RelayCommand ExchangeViewCommand { get; set; }
+
+    public RelayCommand CoinDetailViewCommand { get; set; }
 
     public object CurrentView
     {
@@ -82,6 +86,7 @@ public class MainWindowViewModel: ObservableObject
         LoadCoins();
         MainPageVM = new MainPageViewModel();
         ExchangeVM = new ExchangeViewModel();
+        CoinDetailVM = new CoinDetailViewModel();
         CurrentView = MainPageVM;
         
         MainPageViewCommand = new RelayCommand(o =>
@@ -92,6 +97,11 @@ public class MainWindowViewModel: ObservableObject
         ExchangeViewCommand = new RelayCommand(o =>
         {
             CurrentView = ExchangeVM;
+        });
+
+        CoinDetailViewCommand = new RelayCommand(o =>
+        {
+            CurrentView = CoinDetailVM;
         });
     }
 }

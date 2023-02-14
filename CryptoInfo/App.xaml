@@ -18,6 +18,9 @@
              <DataTemplate DataType="{x:Type viewModel:ExchangeViewModel}">
                  <view:ExchangeView/>
              </DataTemplate>
+             <DataTemplate DataType="{x:Type viewModel:CoinDetailViewModel}">
+                 <view:CoinDetailView/>
+             </DataTemplate>
          </ResourceDictionary>
     </Application.Resources>
 </Application>
