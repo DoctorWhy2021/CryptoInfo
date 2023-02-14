@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CryptoInfo.Core;
 using CryptoInfo.MVVM.Model;
@@ -7,22 +8,35 @@ namespace CryptoInfo.MVVM.ViewModel;
 
 public class MainPageViewModel: ObservableObject
 {
-    public ObservableCollection<CoinModel.ItemModel> CoinsList { get; set; }
+    public ObservableCollection<CoinModel> CoinsList { get; set; }
+    // public ObservableCollection<double[]> SparklinesList { get; set; }
 
     private async Task LoadCoin()
     {
-        var coins = await CoinsProccesor.LoadCoinsInfo();
+        var coins = await CoinsProccesor.LoadTopCoinsInfo();
 
-        foreach (var coin in coins.Coins)
+        foreach (var coin in coins)
         {
-           CoinsList.Add(coin.Item); 
+           CoinsList.Add(coin); 
+           // SparklinesList.Add(coin.Price);
         }
+        
     }
 
     public MainPageViewModel()
     {
-        CoinsList = new ObservableCollection<CoinModel.ItemModel>();
-        
+        CoinsList = new ObservableCollection<CoinModel>();
+        // SparklinesList = new ObservableCollection<double[]>();
+        CoinsList.Add(new CoinModel
+        {
+            Current_price = 10000,
+            Id = "nan",
+            Image = "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
+            Symbol = "NaN",
+            Name = "NAN",
+            Price_change_percentage_24h = -0.4
+
+        });
         LoadCoin();
     }
 }
