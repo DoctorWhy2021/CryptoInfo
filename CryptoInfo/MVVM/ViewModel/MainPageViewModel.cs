@@ -13,7 +13,7 @@ public class MainPageViewModel: ObservableObject
 
     private async Task LoadCoin()
     {
-        var coins = await CoinsProccesor.LoadCoinsInfo();
+        var coins = await CoinsProccesor.LoadTopCoinsInfo();
 
         foreach (var coin in coins)
         {
@@ -29,12 +29,12 @@ public class MainPageViewModel: ObservableObject
         // SparklinesList = new ObservableCollection<double[]>();
         CoinsList.Add(new CoinModel
         {
-            current_price = 10000,
-            id = "nan",
-            image = "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
-            symbol = "NaN",
-            name = "NAN",
-            price_change_percentage_24h = -0.4
+            Current_price = 10000,
+            Id = "nan",
+            Image = "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
+            Symbol = "NaN",
+            Name = "NAN",
+            Price_change_percentage_24h = -0.4
 
         });
         LoadCoin();

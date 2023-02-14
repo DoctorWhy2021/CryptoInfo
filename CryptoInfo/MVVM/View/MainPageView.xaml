@@ -10,7 +10,7 @@
     <UserControl.DataContext>
         <viewModel:MainPageViewModel/>
     </UserControl.DataContext>
-    <Grid>
+    <Grid ZIndex="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition/>
@@ -54,20 +54,20 @@
                                        Grid.Column="0"
                                        Grid.RowSpan="2"
                                        Margin="5"
-                                       Source="{Binding image}"
+                                       Source="{Binding Image}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"/>
                                 <!-- Name and Price -->
                                 <StackPanel Grid.Row="0"
                                             Grid.Column="1"
                                             Orientation="Horizontal">
-                                    <TextBlock Text="{Binding name}"
+                                    <TextBlock Text="{Binding Name}"
                                                FontSize="20"
                                                FontWeight="Bold"
                                                Margin="0,0,5,0"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Left"/>
-                                    <TextBlock Text="{Binding symbol}"
+                                    <TextBlock Text="{Binding Symbol}"
                                                FontSize="15"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Left"/>
@@ -83,7 +83,7 @@
                                     <TextBlock FontSize="18"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Left"
-                                               Text="{Binding current_price, StringFormat={}{0:c1}}"/>
+                                               Text="{Binding Current_price, StringFormat={}{0:c1}}"/>
                                 </StackPanel>
                                 <!-- Changes 24h in percentage -->
                                 <TextBlock Text="Changes 24h"
@@ -99,7 +99,7 @@
                                            Grid.Column="2"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
-                                           Text="{Binding StringFormat={}{0}% ,Path= price_change_percentage_24h}"/>
+                                           Text="{Binding StringFormat={}{0}% ,Path= Price_change_percentage_24h}"/>
                                 <!-- 24h Volume -->
                                 <TextBlock Text="24h Volume"
                                            Grid.Row="0"
@@ -114,7 +114,7 @@
                                            Grid.Column="3"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Left"
-                                           Text="{Binding StringFormat={}{0:C0} ,Path= total_volume}"/>
+                                           Text="{Binding StringFormat={}{0:C0} ,Path= Total_volume}"/>
                                 
                             </Grid>
                         </Border>

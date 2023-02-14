@@ -50,10 +50,58 @@
                     BorderThickness="0,0,0.5,0"/>
             
             <StackPanel Grid.Row="0"
+                  Grid.Column="1"
+                  Grid.RowSpan="2"
+                  ZIndex="100"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Left"
+                  Margin="10,10,0,0"
+                  >
+                <Grid ZIndex="102">
+                    <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                        Width="200"
+                        Height="25"
+                        Style="{StaticResource SearchBoxTheme}"
+                        x:Name="SearchBox"/>
+                </Grid>
+                <Grid>
+                    <ListView
+                              ItemsSource="{Binding FilteredCoinsList}"
+                              Margin="0,-10,0,0"
+                              Padding="0,10,0,0"
+                              Style="{StaticResource SearchList}"
+                              >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,5,0,5">
+                                    <Image Source="{Binding Image}"
+                                           Width="30"
+                                           Margin="0,0,7,0"/>
+                                    <TextBlock Text="{Binding Name}"
+                                               VerticalAlignment="Center"
+                                               FontSize="22"
+                                               FontWeight="Medium"
+                                               Margin="0,0,7,0"/>
+                                    <TextBlock Text="{Binding Name}"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                       
+                    </ListView>
+                </Grid>
+                
+            </StackPanel>
+            
+            <StackPanel Grid.Row="0"
                         Grid.Column="1"
                         HorizontalAlignment="Right"
                         Orientation="Horizontal"
                         Margin="0,0,15,0">
+                
                 <Button Width="30"
                         Height="30"
                         Background="Transparent"
@@ -62,16 +110,16 @@
                     <Image Source="Images/change_theme.png"/>
                 </Button>
                 
-                    <Button Width="30"
-                            Height="30"
-                            Content="🗕"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Foreground="White"
-                            FontSize="20"
-                            Margin="0,0,5,0"
-                            x:Name="Minimize"
-                            Click="Minimize_OnClick"/>
+                <Button Width="30"
+                        Height="30"
+                        Content="🗕"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="White"
+                        FontSize="20"
+                        Margin="0,0,5,0"
+                        x:Name="Minimize"
+                        Click="Minimize_OnClick"/>
                 
                 <Button Width="30"
                         Height="30"

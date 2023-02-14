@@ -8,7 +8,7 @@ namespace CryptoInfo.MVVM.Model;
 
 public class CoinsProccesor
 {
-    public static async Task<CoinModel[]> LoadCoinsInfo()
+    public static async Task<CoinModel[]> LoadTopCoinsInfo()
     {
         string url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false";
 
@@ -17,6 +17,25 @@ public class CoinsProccesor
             if (responseMessage.IsSuccessStatusCode)
             {
                 var coins = await responseMessage.Content.ReadFromJsonAsync<CoinModel[]>();
+
+                return coins;
+            }
+            else
+            {
+                throw new Exception(responseMessage.ReasonPhrase);
+            }
+        }
+    }
+    
+    public static async Task<ShortCoinModel[]> LoadCoinsInfo()
+    {
+        string url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false";
+
+        using (HttpResponseMessage responseMessage = await APIHelper.ApiClient.GetAsync(url))
+        {
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var coins = await responseMessage.Content.ReadFromJsonAsync<ShortCoinModel[]>();
 
                 return coins;
             }
