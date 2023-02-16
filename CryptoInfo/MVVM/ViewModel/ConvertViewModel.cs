@@ -2,7 +2,7 @@
 
 namespace CryptoInfo.MVVM.ViewModel;
 
-public class ExchangeViewModel: ObservableObject
+public class ConvertViewModel: ObservableObject
 {
     
 }

@@ -13,7 +13,9 @@ public class MainPageViewModel: ObservableObject
 
     private async Task LoadCoin()
     {
-        var coins = await CoinsProccesor.LoadTopCoinsInfo();
+        APIHelper apiHelper = new APIHelper();
+        apiHelper.InitializeClient();
+        var coins = await CoinsProccesor.LoadTopCoinsInfo(apiHelper);
 
         foreach (var coin in coins)
         {
@@ -37,6 +39,6 @@ public class MainPageViewModel: ObservableObject
             Price_change_percentage_24h = -0.4
 
         });
-        LoadCoin();
+        // LoadCoin();
     }
 }

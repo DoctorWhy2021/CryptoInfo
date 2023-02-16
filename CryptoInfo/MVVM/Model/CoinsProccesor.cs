@@ -8,11 +8,10 @@ namespace CryptoInfo.MVVM.Model;
 
 public class CoinsProccesor
 {
-    public static async Task<CoinModel[]> LoadTopCoinsInfo()
+    public static async Task<CoinModel[]> LoadTopCoinsInfo(APIHelper apiHelper)
     {
         string url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false";
-
-        using (HttpResponseMessage responseMessage = await APIHelper.ApiClient.GetAsync(url))
+        using (HttpResponseMessage responseMessage = await apiHelper.ApiClient.GetAsync(url))
         {
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -20,18 +19,15 @@ public class CoinsProccesor
 
                 return coins;
             }
-            else
-            {
-                throw new Exception(responseMessage.ReasonPhrase);
-            }
+            
+            throw new Exception(responseMessage.ReasonPhrase);
         }
     }
     
-    public static async Task<ShortCoinModel[]> LoadCoinsInfo()
+    public static async Task<ShortCoinModel[]> LoadCoinsInfo(APIHelper apiHelper)
     {
-        string url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false";
-
-        using (HttpResponseMessage responseMessage = await APIHelper.ApiClient.GetAsync(url))
+        string url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false";
+        using (HttpResponseMessage responseMessage = await apiHelper.ApiClient.GetAsync(url))
         {
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -39,10 +35,8 @@ public class CoinsProccesor
 
                 return coins;
             }
-            else
-            {
-                throw new Exception(responseMessage.ReasonPhrase);
-            }
+            
+            throw new Exception(responseMessage.ReasonPhrase);
         }
     }
 }

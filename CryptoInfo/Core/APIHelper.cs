@@ -5,9 +5,9 @@ namespace CryptoInfo.Core;
 
 public class APIHelper
 {
-    public static HttpClient ApiClient { get; set; }
+    public HttpClient ApiClient { get; set; }
 
-    public static void InitializeClient()
+    public void InitializeClient()
     {
         ApiClient = new HttpClient();
         ApiClient.DefaultRequestHeaders.Accept.Clear();

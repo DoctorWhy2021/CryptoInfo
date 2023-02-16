@@ -2,9 +2,9 @@
 
 namespace CryptoInfo.MVVM.View;
 
-public partial class ExchangeView : UserControl
+public partial class ConvertView : UserControl
 {
-    public ExchangeView()
+    public ConvertView()
     {
         InitializeComponent();
     }

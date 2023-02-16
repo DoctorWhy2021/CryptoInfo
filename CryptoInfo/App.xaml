@@ -10,13 +10,15 @@
              <ResourceDictionary.MergedDictionaries>
                  <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                  <ResourceDictionary Source="Theme/SearchBoxTheme.xaml"/>
+                 <ResourceDictionary Source="Theme/DataGridElementStyle.xaml"/>
+                 <ResourceDictionary Source="Theme/TextBlockStyle.xaml"/>
              </ResourceDictionary.MergedDictionaries>
              
              <DataTemplate DataType="{x:Type viewModel:MainPageViewModel}">
                  <view:MainPageView/>
              </DataTemplate>
-             <DataTemplate DataType="{x:Type viewModel:ExchangeViewModel}">
-                 <view:ExchangeView/>
+             <DataTemplate DataType="{x:Type viewModel:ConvertViewModel}">
+                 <view:ConvertView/>
              </DataTemplate>
              <DataTemplate DataType="{x:Type viewModel:CoinDetailViewModel}">
                  <view:CoinDetailView/>

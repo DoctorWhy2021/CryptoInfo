@@ -11,19 +11,20 @@ public class MainWindowViewModel: ObservableObject
 {
     private object _currentView;
     private string _searchText;
-
-    public ObservableCollection<ShortCoinModel> CoinsList { get; set; }
+    private ShortCoinModel _selectedItem;
+   
 
     private MainPageViewModel MainPageVM { get; set; }
-    private ExchangeViewModel ExchangeVM { get; set; } 
-    private CoinDetailViewModel CoinDetailVM { get;}
-
-
+    private ConvertViewModel ConvertVm { get; set; }
+    private CoinDetailViewModel CoinDetailVM { get; set; }
 
     public RelayCommand MainPageViewCommand { get; set; }
-    public RelayCommand ExchangeViewCommand { get; set; }
+    public RelayCommand ConvertViewCommand { get; set; }
 
     public RelayCommand CoinDetailViewCommand { get; set; }
+    
+    private ObservableCollection<ShortCoinModel> CoinsList { get; }
+
 
     public object CurrentView
     {
@@ -32,6 +33,7 @@ public class MainWindowViewModel: ObservableObject
         {
             _currentView = value;
             OnPropertyChanged();
+            // OnPropertyChanged("SelectedItem");
         }
     }
 
@@ -49,6 +51,22 @@ public class MainWindowViewModel: ObservableObject
         }
     }
 
+    public ShortCoinModel SelectedItem
+    {
+        get { return _selectedItem; }
+        set
+        {
+            _selectedItem = value;
+            SearchText = null;
+            // if (_selectedItem != null)
+            // {
+                CoinDetailVM = new CoinDetailViewModel();
+                CoinDetailVM.SelectedId = value.Id;
+                CurrentView = CoinDetailVM;
+            // }
+        }
+    }
+
     public ObservableCollection<ShortCoinModel> FilteredCoinsList
     {
         get
@@ -59,11 +77,11 @@ public class MainWindowViewModel: ObservableObject
         }
     }
 
-
-
     private async Task LoadCoins()
     {
-        var coins = await CoinsProccesor.LoadCoinsInfo();
+        APIHelper apiHelper = new APIHelper();
+        apiHelper.InitializeClient();
+        var coins = await CoinsProccesor.LoadCoinsInfo(apiHelper);
 
         foreach (var coin in coins)
         {
@@ -73,35 +91,39 @@ public class MainWindowViewModel: ObservableObject
     
     public MainWindowViewModel()
     {
-        APIHelper.InitializeClient();
         CoinsList = new ObservableCollection<ShortCoinModel>();
         CoinsList.Add(new ShortCoinModel
         {
-            Id = "nan",
+            Id = "tether",
             Image = "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
             Symbol = "NaN",
             Name = "NAN",
 
         });
-        LoadCoins();
+        
+        
         MainPageVM = new MainPageViewModel();
-        ExchangeVM = new ExchangeViewModel();
-        CoinDetailVM = new CoinDetailViewModel();
+        ConvertVm = new ConvertViewModel();
+
         CurrentView = MainPageVM;
         
         MainPageViewCommand = new RelayCommand(o =>
         {
+            // _selectedItem = null;
+
             CurrentView = MainPageVM;
         });
 
-        ExchangeViewCommand = new RelayCommand(o =>
+        ConvertViewCommand = new RelayCommand(o =>
         {
-            CurrentView = ExchangeVM;
+            CurrentView = ConvertVm;
         });
+        // LoadCoins();
 
         CoinDetailViewCommand = new RelayCommand(o =>
         {
             CurrentView = CoinDetailVM;
         });
+        
     }
 }
