@@ -11,10 +11,9 @@ public class MainPageViewModel: ObservableObject
     public ObservableCollection<CoinModel> CoinsList { get; set; }
     // public ObservableCollection<double[]> SparklinesList { get; set; }
 
-    private async Task LoadCoin()
+    private async Task LoadCoin(APIHelper apiHelper)
     {
-        APIHelper apiHelper = new APIHelper();
-        apiHelper.InitializeClient();
+        
         var coins = await CoinsProccesor.LoadTopCoinsInfo(apiHelper);
 
         foreach (var coin in coins)
@@ -27,6 +26,8 @@ public class MainPageViewModel: ObservableObject
 
     public MainPageViewModel()
     {
+        APIHelper apiHelper = new APIHelper();
+        apiHelper.InitializeClient();
         CoinsList = new ObservableCollection<CoinModel>();
         // SparklinesList = new ObservableCollection<double[]>();
         CoinsList.Add(new CoinModel
@@ -39,6 +40,6 @@ public class MainPageViewModel: ObservableObject
             Price_change_percentage_24h = -0.4
 
         });
-        // LoadCoin();
+        LoadCoin(apiHelper);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Input;
 using CryptoInfo.MVVM.ViewModel;
 
@@ -29,5 +28,6 @@ namespace CryptoInfo
         {
             Application.Current.Shutdown();
         }
+
     }
 }

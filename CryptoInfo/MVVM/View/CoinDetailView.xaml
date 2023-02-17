@@ -7,7 +7,7 @@
              xmlns:viewModel="clr-namespace:CryptoInfo.MVVM.ViewModel"
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="900"
-             Background="Black">
+>
     <UserControl.DataContext>
         <viewModel:CoinDetailViewModel/>
     </UserControl.DataContext>
@@ -18,14 +18,13 @@
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Left">
             <Border Background="DarkGray"
-                    Width="84"
                     Padding="5"
                     CornerRadius="8"
                     Margin="2,0,0,5"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
                     >
-                <TextBlock Text="{Binding CoinDetails.Market_cap_rank, StringFormat=Rank #{0}}"
+                <TextBlock Text="{Binding CoinDetails.market_cap_rank, StringFormat=Rank #{0}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                            FontWeight="Medium"
                            FontSize="20"
                            Style="{StaticResource TextStyle}"/>
@@ -34,13 +33,13 @@
                         Margin="0,0,0,10">
                 <Image Width="50"
                        HorizontalAlignment="Left"
-                       Source="{Binding CoinDetails.image.Small}"/>
-                <TextBlock Text="{Binding CoinDetails.Name}"
+                       Source="{Binding CoinDetails.image.small}"/>
+                <TextBlock Text="{Binding CoinDetails.name}"
                            Margin="0,0,5,0"
                            FontSize="30"
                            Style="{StaticResource TextStyle}"
                            VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding CoinDetails.Symbol}"
+                <TextBlock Text="{Binding CoinDetails.symbol}"
                            FontSize="18"
                            Foreground="DarkGray"
                            FontFamily="/Fonts/#Itim"
@@ -48,20 +47,20 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Margin="0,0,0,10">
-                <TextBlock Text="{Binding CoinDetails.Market_data.Current_price.Usd, StringFormat={}{0:C2}}"
-                           Margin="0,0,5,0"
-                           FontSize="30"
-                           Style="{StaticResource TextStyle}"
-                           VerticalAlignment="Center"
-                           />
-                <TextBlock Text="2.7%"
+                <TextBlock Text="{Binding CoinDetails.market_data.current_price[usd], StringFormat={}{0:C}}"
+                Margin="0,0,5,0"
+                FontSize="30"
+                Style="{StaticResource TextStyle}"
+                VerticalAlignment="Center"
+                />
+                <TextBlock Text="{Binding CoinDetails.market_data.price_change_percentage_24h, StringFormat={}{0}%}"
                            FontWeight="Bold"
                            FontSize="18"
                            Foreground="Green"
                            FontFamily="/Fonts/#Itim"
                            VerticalAlignment="Center"/>
             </StackPanel>
-            <TextBlock Text="{Binding CoinDetails.Market_data.Current_price.Btc, StringFormat={}{0:N7}BTC}"
+            <TextBlock Text="{Binding CoinDetails.market_data.current_price[btc], StringFormat={}{0:N7}BTC}"
                        Margin="0,0,0,10"
                        FontWeight="Bold"
                        FontSize="18"
@@ -81,13 +80,13 @@
                 <ProgressBar Grid.Row="0"
                              Grid.Column="0"
                              Grid.ColumnSpan="3"
-                             Minimum="{Binding CoinDetails.Market_data.Low_24h.Usd}"
-                             Maximum="{Binding CoinDetails.Market_data.High_24h.Usd}"
-                             Value="{Binding CoinDetails.Market_data.Current_price.Usd}"
+                             Minimum="{Binding CoinDetails.market_data.low_24h[usd]}"
+                             Maximum="{Binding CoinDetails.market_data.high_24h[usd]}"
+                             Value="{Binding CoinDetails.market_data.current_price[usd]}"
                              Height="20" Width="300"/>
                 <TextBlock Grid.Row="1"
                            Grid.Column="0"
-                           Text="{Binding CoinDetails.Market_data.Low_24h.Usd, StringFormat={}{0:C2}}"
+                           Text="{Binding CoinDetails.market_data.low_24h[usd], StringFormat={}{0:C2}}"
                            Style="{StaticResource TextStyle}"
                            FontSize="18"
                            x:Name="Min24h"/>
@@ -100,7 +99,7 @@
                 <TextBlock Grid.Row="1"
                            Grid.Column="2"
                            HorizontalAlignment="Right"
-                           Text="{Binding CoinDetails.Market_data.High_24h.Usd, StringFormat={}{0:C2}}"
+                           Text="{Binding CoinDetails.market_data.high_24h[usd], StringFormat={}{0:C2}}"
                            Style="{StaticResource TextStyle}"
                            FontSize="18"
                            x:Name="Max24h"/>
@@ -153,7 +152,7 @@
                                     ElementStyle="{StaticResource DataGridElementStyle}"
                                     Binding="{Binding Bid_ask_spread_percentage, StringFormat={}{0:P2}}"/>
                 <DataGridTextColumn Header="24h Volume" 
-                                    Binding="{Binding Converted_volume.Usd, StringFormat={}{0:C2}}"
+                                    Binding="{Binding Converted_volume[usd], StringFormat={}{0:C2}}"
                                     ElementStyle="{StaticResource DataGridElementStyle}"/>
                 <DataGridTemplateColumn Header="Trust Score">
                     <DataGridTemplateColumn.CellTemplate>
