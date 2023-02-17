@@ -1,14 +1,25 @@
-﻿namespace CryptoInfo.MVVM.Model;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+
+namespace CryptoInfo.MVVM.Model;
 
 public class CoinDetailsModel
 {
-    public string Id { get; set; }
-    public string Symbol { get; set; }
-    public string Name { get; set; }
-    // public Image? image { get; set; }
-    // public int Market_cap_rank { get; set; }
-    // public Market_data? Market_data { get; set; }
-
+    [JsonProperty("id")]
+    public string id { get; set; }
+    [JsonProperty("symbol")]
+    public string symbol { get; set; }
+    [JsonProperty("name")]
+    public string name { get; set; }
+    // [JsonProperty("id")]
+    // public Links links { get; set; }
+    [JsonProperty("image")]
+    public Image image { get; set; }
+    [JsonProperty("market_cap_rank")]
+    public int? market_cap_rank { get; set; }
+    [JsonProperty("market_data", NullValueHandling = NullValueHandling.Ignore)]
+    public Market_data? market_data { get; set; }
 }
 
 // public class Links
@@ -22,59 +33,83 @@ public class CoinDetailsModel
 //     public string facebook_username { get; set; }
 //     public object bitcointalk_thread_identifier { get; set; }
 //     public string telegram_channel_identifier { get; set; }
-//     public string subreddit_url { get; set; }
+//     public object subreddit_url { get; set; }
 //     public Repos_url repos_url { get; set; }
 // }
-//
+
 // public class Repos_url
 // {
-//     public string[] github { get; set; }
+//     public object[] github { get; set; }
 //     public object[] bitbucket { get; set; }
 // }
 
 public class Image
 {
-    public string Thumb { get; set; }
-    public string Small { get; set; }
-    public string Large { get; set; }
+    [JsonProperty("thumb")]
+    public Uri? thumb { get; set; }
+    [JsonProperty("small")]
+    public Uri? small { get; set; }
+    [JsonProperty("large")]
+    public Uri? large { get; set; }
 }
 
 public class Market_data
 {
-    public Current_price? Current_price { get; set; }
-    public Market_cap Market_cap { get; set; }
-    public Total_volume Total_volume { get; set; }
-    public High_24h? High_24h { get; set; }
-    public Low_24h? Low_24h { get; set; }
-    public long Price_change_24h { get; set; }
-    public double Price_change_percentage_24h { get; set; }
-    public long Market_cap_change_24h { get; set; }
-    public double Market_cap_change_percentage_24h { get; set; }
-    public double Total_supply { get; set; }
+    [JsonProperty("current_price")]
+    public Dictionary<string, decimal>? current_price { get; set; }
+    [JsonProperty("market_cap")]
+    public Dictionary<string, decimal>? market_cap { get; set; }
+    [JsonProperty("total_volume")]
+    public Dictionary<string, decimal>? total_volume { get; set; }
+    [JsonProperty("high_24h")]
+    public Dictionary<string, decimal>? high_24h { get; set; }
+    [JsonProperty("low_24h")]
+    public Dictionary<string, decimal>? low_24h { get; set; }
+    [JsonProperty("price_change_24h")]
+    public decimal? price_change_24h { get; set; }
+    [JsonProperty("price_change_percentage_24h")]
+    public double? price_change_percentage_24h { get; set; }
+    [JsonProperty("market_cap_change_24h")]
+    public decimal? market_cap_change_24h { get; set; }
+    [JsonProperty("market_cap_change_percentage_24h")]
+    public double? market_cap_change_percentage_24h { get; set; }
+    [JsonProperty("price_change_24h_in_currency")]
+    public Dictionary<string, decimal>? price_change_24h_in_currency { get; set; }
+    [JsonProperty("price_change_percentage_24h_in_currency")]
+    public Dictionary<string, double>? price_change_percentage_24h_in_currency { get; set; }
+    [JsonProperty("market_cap_change_24h_in_currency")]
+    public Dictionary<string, decimal>? market_cap_change_24h_in_currency { get; set; }
+    [JsonProperty("market_cap_change_percentage_24h_in_currency")]
+    public Dictionary<string, double>? market_cap_change_percentage_24h_in_currency { get; set; }
+    [JsonProperty("total_supply")]
+    public decimal? total_supply { get; set; }
 }
 
-public class Current_price
-{
-    public double Usd { get; set; }
-    public double Btc { get; set; }
-}
 
-public class Market_cap
-{
-    public long Usd { get; set; }
-}
 
-public class Total_volume
-{
-    public long Usd { get; set; }
-}
 
-public class High_24h
-{
-    public double Usd { get; set; }
-}
 
-public class Low_24h
-{
-    public double Usd { get; set; }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

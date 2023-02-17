@@ -12,5 +12,7 @@ public class APIHelper
         ApiClient = new HttpClient();
         ApiClient.DefaultRequestHeaders.Accept.Clear();
         ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        ApiClient.DefaultRequestHeaders.Add("User-Agent", "your bot 0.1");
+
     }
 }

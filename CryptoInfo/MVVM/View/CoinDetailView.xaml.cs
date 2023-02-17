@@ -7,5 +7,6 @@ public partial class CoinDetailView : UserControl
     public CoinDetailView()
     {
         InitializeComponent();
+        
     }
 }

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using CryptoInfo.Core;
 using CryptoInfo.MVVM.Model;
 
@@ -11,8 +13,7 @@ public class MainWindowViewModel: ObservableObject
 {
     private object _currentView;
     private string _searchText;
-    private ShortCoinModel _selectedItem;
-   
+
 
     private MainPageViewModel MainPageVM { get; set; }
     private ConvertViewModel ConvertVm { get; set; }
@@ -33,7 +34,6 @@ public class MainWindowViewModel: ObservableObject
         {
             _currentView = value;
             OnPropertyChanged();
-            // OnPropertyChanged("SelectedItem");
         }
     }
 
@@ -51,37 +51,19 @@ public class MainWindowViewModel: ObservableObject
         }
     }
 
-    public ShortCoinModel SelectedItem
-    {
-        get { return _selectedItem; }
-        set
-        {
-            _selectedItem = value;
-            SearchText = null;
-            // if (_selectedItem != null)
-            // {
-                CoinDetailVM = new CoinDetailViewModel();
-                CoinDetailVM.SelectedId = value.Id;
-                CurrentView = CoinDetailVM;
-            // }
-        }
-    }
+    public static ShortCoinModel SelectedItem { get; set; }
 
     public ObservableCollection<ShortCoinModel> FilteredCoinsList
     {
         get
         {
-            if (SearchText == null)
-                return CoinsList;
-            return new ObservableCollection<ShortCoinModel>(CoinsList.Where(x => x.Name.ToLower().StartsWith(SearchText.ToLower())));
+            return SearchText == null ? CoinsList : new ObservableCollection<ShortCoinModel>(CoinsList.Where(x => x.Name.ToLower().StartsWith(SearchText.ToLower())));
         }
     }
 
-    private async Task LoadCoins()
+    private async Task LoadCoins(APIHelper apiHelper)
     {
-        APIHelper apiHelper = new APIHelper();
-        apiHelper.InitializeClient();
-        var coins = await CoinsProccesor.LoadCoinsInfo(apiHelper);
+        var coins = await CoinsProccesor.LoadShortCoinsInfo(apiHelper);
 
         foreach (var coin in coins)
         {
@@ -91,17 +73,33 @@ public class MainWindowViewModel: ObservableObject
     
     public MainWindowViewModel()
     {
+        var apiHelper = new APIHelper();
+        apiHelper.InitializeClient();
         CoinsList = new ObservableCollection<ShortCoinModel>();
+        
         CoinsList.Add(new ShortCoinModel
         {
             Id = "tether",
-            Image = "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
-            Symbol = "NaN",
-            Name = "NAN",
-
+            Image = new Uri("https://assets.coingecko.com/coins/images/6319/large/USD_Coin"),
+            Symbol = "USDT",
+            Name = "Tether",
         });
-        
-        
+        CoinsList.Add(new ShortCoinModel
+        {
+            Id = "bitcoin",
+            Image = new Uri("https://assets.coingecko.com/coins/images/6319/large/USD_Coin"),
+            Symbol = "BTC",
+            Name = "Bitcoin",
+        });
+        CoinsList.Add(new ShortCoinModel
+        {
+            Id = "okb",
+            Image = new Uri("https://assets.coingecko.com/coins/images/6319/large/USD_Coin"),
+            Symbol = "OKB",
+            Name = "OKB",
+        });
+        LoadCoins(apiHelper);
+
         MainPageVM = new MainPageViewModel();
         ConvertVm = new ConvertViewModel();
 
@@ -109,7 +107,6 @@ public class MainWindowViewModel: ObservableObject
         
         MainPageViewCommand = new RelayCommand(o =>
         {
-            // _selectedItem = null;
 
             CurrentView = MainPageVM;
         });
@@ -118,11 +115,19 @@ public class MainWindowViewModel: ObservableObject
         {
             CurrentView = ConvertVm;
         });
-        // LoadCoins();
 
         CoinDetailViewCommand = new RelayCommand(o =>
         {
+            // if (CurrentView == CoinDetailVM)
+            // {
+            //     CurrentView = MainPageVM;
+            //     CoinDetailVM = new CoinDetailViewModel();
+            //     CurrentView = CoinDetailVM;
+            // }
+            SearchText = null;
+            CoinDetailVM = new CoinDetailViewModel();
             CurrentView = CoinDetailVM;
+
         });
         
     }
