@@ -224,9 +224,20 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridHyperlinkColumn Header="Link"
-                                         ElementStyle="{StaticResource DataGridElementStyle}"
                                          Binding="{Binding Trade_url}"
-                                         ContentBinding="{Binding Market.Name}"/>
+                                         ContentBinding="{Binding Market.Name}">
+                    <DataGridHyperlinkColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.Foreground" Value="White"/>
+                            <Setter Property="TextBlock.Margin" Value="10"/>
+                            <Setter Property="TextBlock.FontSize" Value="20"/>
+                            <Setter Property="TextBlock.FontFamily" Value="/Fonts/#Itim"/>
+                            <Setter Property="TextBlock.TextDecorations" Value="None"/>
+                            <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+                            <EventSetter Event="Hyperlink.Click" Handler="EventSetter_OnHandler"></EventSetter>
+                        </Style>
+                    </DataGridHyperlinkColumn.ElementStyle>
+                </DataGridHyperlinkColumn>
             </DataGrid.Columns>
         </DataGrid>
         </DockPanel>
