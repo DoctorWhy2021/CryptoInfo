@@ -38,7 +38,7 @@ public class Ticker
     public double? Bid_ask_spread_percentage { get; set; }
     
     [JsonProperty("trade_url")]
-    public string? Trade_url { get; set; }
+    public Uri? Trade_url { get; set; }
     [JsonProperty("coin_id")]
     public string? coin_id { get; set; }
     [JsonProperty("target_coin_id")]

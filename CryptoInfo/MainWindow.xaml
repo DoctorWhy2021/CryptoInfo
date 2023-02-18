@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoInfo"
         xmlns:viewModel="clr-namespace:CryptoInfo.MVVM.ViewModel"
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1000"
         AllowsTransparency="True"
@@ -39,7 +38,7 @@
                     BorderThickness="0,0,0,0.5"
                     Grid.ColumnSpan="2"/>
             <TextBlock Text="CryptoInfo"
-                       Foreground="DarkGray"
+                       Foreground="White"
                        FontSize="18"
                        FontWeight="Medium"
                        FontFamily="/Fonts/#Itim"
@@ -58,6 +57,7 @@
                   HorizontalAlignment="Left"
                   Margin="10,10,0,0"
                   >
+                <!-- Grid for our search bar -->
                 <Grid ZIndex="102">
                     <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         Width="300"
@@ -66,20 +66,18 @@
                         x:Name="SearchBox"/>
                 </Grid>
                 <Grid>
-                    <ListBox
-                            ItemsSource="{Binding FilteredCoinsList}"
-                            Margin="0,-10,0,0"
-                            Padding="0,10,0,0"
-                            Style="{StaticResource SearchList}"
-                            x:Name="SearchList"
-                            SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged,Mode=OneWayToSource}"
-                            >
-                        
+                    <ListBox ItemsSource="{Binding FilteredCoinsList}"
+                             Margin="0,-10,0,0"
+                             Padding="0,10,0,0"
+                             Style="{StaticResource SearchList}"
+                             x:Name="SearchList"
+                             SelectedItem="{Binding SelectedItem, UpdateSourceTrigger=PropertyChanged,Mode=OneWayToSource}"
+                    >
                         <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal"
                                                 Margin="0,5,0,5"
-                                                >
+                                                Width="{Binding ElementName=SearchList ,Path=Width}">
                                         <StackPanel.InputBindings>
                                             <MouseBinding 
                                                 Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.CoinDetailViewCommand}"
@@ -95,28 +93,26 @@
                                                    Margin="0,0,7,0"/>
                                         <TextBlock Text="{Binding Symbol}"
                                                    VerticalAlignment="Center"
-                                                   FontSize="15"
-                                        />
+                                                   FontSize="15"/>
                                     </StackPanel>
                                 </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
-                
             </StackPanel>
             
+            <!-- StackPanel For ToolBarButtons -->
             <StackPanel Grid.Row="0"
                         Grid.Column="1"
                         HorizontalAlignment="Right"
                         Orientation="Horizontal"
                         Margin="0,0,15,0">
-                
                 <Button Width="30"
                         Height="30"
                         Background="Transparent"
                         BorderThickness="0"
                         Margin="0,0,5,0">
-                    <Image Source="Images/change_theme.png"/>
+                    <Image Source="Images/change_theme_white.png"/>
                 </Button>
                 
                 <Button Width="30"
@@ -140,9 +136,8 @@
                         Margin="0,0,5,0"
                         x:Name="Close"
                         Click="Close_OnClick"/>
-                
             </StackPanel>
-            
+            <!-- StackPanel For Menu Buttons -->
             <StackPanel Grid.Row="1"
                         Grid.Column="0">
                 
@@ -152,22 +147,19 @@
                              FontSize="20"
                              IsChecked="True"
                              Command="{Binding MainPageViewCommand}"/>
+                
                 <RadioButton Content="Convert"
                              Style="{StaticResource MenuButtonTheme}"
                              Height="50"
                              FontSize="20"
                              Command="{Binding ConvertViewCommand}"/>
-                <RadioButton Content="Details"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Height="50"
-                             FontSize="20"
-                             Command="{Binding CoinDetailViewCommand}"/>
-                
             </StackPanel>
+            
+            <!-- ContentControl to show our views inside main window -->
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Margin="10"
-                            Content="{Binding CurrentView }"/>
+                            Content="{Binding CurrentView}"/>
         </Grid>
     </Border>
 </Window>

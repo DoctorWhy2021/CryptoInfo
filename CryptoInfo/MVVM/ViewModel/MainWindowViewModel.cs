@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Threading;
 using CryptoInfo.Core;
 using CryptoInfo.MVVM.Model;
 
@@ -14,7 +11,7 @@ public class MainWindowViewModel: ObservableObject
     private object _currentView;
     private string _searchText;
 
-
+    #region Props
     private MainPageViewModel MainPageVM { get; set; }
     private ConvertViewModel ConvertVm { get; set; }
     private CoinDetailViewModel CoinDetailVM { get; set; }
@@ -25,8 +22,6 @@ public class MainWindowViewModel: ObservableObject
     public RelayCommand CoinDetailViewCommand { get; set; }
     
     private ObservableCollection<ShortCoinModel> CoinsList { get; }
-
-
     public object CurrentView
     {
         get { return _currentView; }
@@ -47,6 +42,7 @@ public class MainWindowViewModel: ObservableObject
         {
             _searchText = value;
             OnPropertyChanged();
+            //Changing filtered list property on every new manipulation with searchtext
             OnPropertyChanged("FilteredCoinsList");
         }
     }
@@ -57,10 +53,15 @@ public class MainWindowViewModel: ObservableObject
     {
         get
         {
-            return SearchText == null ? CoinsList : new ObservableCollection<ShortCoinModel>(CoinsList.Where(x => x.Name.ToLower().StartsWith(SearchText.ToLower())));
+            //Return new filtered list 
+            //To filter list use Linq
+            return new ObservableCollection<ShortCoinModel>(CoinsList.Where(x => x.Name.ToLower().StartsWith(SearchText.ToLower())));
         }
     }
 
+    #endregion
+
+    #region Load Coins and adding it to list
     private async Task LoadCoins(APIHelper apiHelper)
     {
         var coins = await CoinsProccesor.LoadShortCoinsInfo(apiHelper);
@@ -70,14 +71,17 @@ public class MainWindowViewModel: ObservableObject
             CoinsList.Add(coin);
         }
     }
-    
+    #endregion
+
     public MainWindowViewModel()
     {
         var apiHelper = new APIHelper();
         apiHelper.InitializeClient();
+        
         CoinsList = new ObservableCollection<ShortCoinModel>();
         
-        CoinsList.Add(new ShortCoinModel
+        //Add hardcode Coins for tests
+        /*CoinsList.Add(new ShortCoinModel
         {
             Id = "tether",
             Image = new Uri("https://assets.coingecko.com/coins/images/6319/large/USD_Coin"),
@@ -98,37 +102,32 @@ public class MainWindowViewModel: ObservableObject
             Symbol = "OKB",
             Name = "OKB",
         });
+        */
+        
+        //Load coins info
         LoadCoins(apiHelper);
-
+        
+        //Creating ViewModels on application start
         MainPageVM = new MainPageViewModel();
         ConvertVm = new ConvertViewModel();
-
-        CurrentView = MainPageVM;
         
-        MainPageViewCommand = new RelayCommand(o =>
-        {
+        //Set current view to main page
+        CurrentView = MainPageVM;
 
-            CurrentView = MainPageVM;
-        });
+        #region RelayCommands
 
-        ConvertViewCommand = new RelayCommand(o =>
-        {
-            CurrentView = ConvertVm;
-        });
+        MainPageViewCommand = new RelayCommand(o => { CurrentView = MainPageVM; });
+
+        ConvertViewCommand = new RelayCommand(o => { CurrentView = ConvertVm; });
 
         CoinDetailViewCommand = new RelayCommand(o =>
         {
-            // if (CurrentView == CoinDetailVM)
-            // {
-            //     CurrentView = MainPageVM;
-            //     CoinDetailVM = new CoinDetailViewModel();
-            //     CurrentView = CoinDetailVM;
-            // }
-            SearchText = null;
+            //Creating ViewModels on Command execution because it needs Coin Id
             CoinDetailVM = new CoinDetailViewModel();
+            //Set Search text to null to hide listbox with FilteredCoinsList
+            SearchText = null;
             CurrentView = CoinDetailVM;
-
         });
-        
+        #endregion
     }
 }

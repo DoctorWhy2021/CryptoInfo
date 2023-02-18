@@ -12,8 +12,6 @@ public class CoinDetailsModel
     public string symbol { get; set; }
     [JsonProperty("name")]
     public string name { get; set; }
-    // [JsonProperty("id")]
-    // public Links links { get; set; }
     [JsonProperty("image")]
     public Image image { get; set; }
     [JsonProperty("market_cap_rank")]
@@ -21,27 +19,6 @@ public class CoinDetailsModel
     [JsonProperty("market_data", NullValueHandling = NullValueHandling.Ignore)]
     public Market_data? market_data { get; set; }
 }
-
-// public class Links
-// {
-//     public string[] homepage { get; set; }
-//     public string[] blockchain_site { get; set; }
-//     public string[] official_forum_url { get; set; }
-//     public string[] chat_url { get; set; }
-//     public string[] announcement_url { get; set; }
-//     public string twitter_screen_name { get; set; }
-//     public string facebook_username { get; set; }
-//     public object bitcointalk_thread_identifier { get; set; }
-//     public string telegram_channel_identifier { get; set; }
-//     public object subreddit_url { get; set; }
-//     public Repos_url repos_url { get; set; }
-// }
-
-// public class Repos_url
-// {
-//     public object[] github { get; set; }
-//     public object[] bitbucket { get; set; }
-// }
 
 public class Image
 {

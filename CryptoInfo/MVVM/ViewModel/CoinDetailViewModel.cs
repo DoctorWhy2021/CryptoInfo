@@ -3,14 +3,17 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CryptoInfo.Core;
 using CryptoInfo.MVVM.Model;
+using CryptoInfo.MVVM.View;
 
 namespace CryptoInfo.MVVM.ViewModel;
 
-public class CoinDetailViewModel: ObservableObject
+public class CoinDetailViewModel : ObservableObject
 {
     private CoinDetailsModel? _coinDetails;
     private string? _selectedItem;
-    
+
+    #region Props
+    public CoinDetailView CoinDetailsView { get; set; }
     public ObservableCollection<Ticker> TickersList { get; set; }
 
     public string SelectedItem
@@ -22,6 +25,7 @@ public class CoinDetailViewModel: ObservableObject
             OnPropertyChanged();
         }
     }
+
     public CoinDetailsModel? CoinDetails
     {
         get { return _coinDetails; }
@@ -29,35 +33,55 @@ public class CoinDetailViewModel: ObservableObject
         {
             _coinDetails = value;
             OnPropertyChanged();
+
         }
     }
-    private async Task LoadCoinDetails(APIHelper apiHelper, string selectedId){
-    {
-        var coinDetails = await CoinDetailsProcessor.LoadCoinDetails(apiHelper, selectedId);
-        CoinDetails = coinDetails;
+    
 
-    }}
+    #endregion
+
+    #region Get Info From API
+
+    private async Task LoadCoinDetails(APIHelper apiHelper, string selectedId)
+    {
+        {
+            var coinDetails = await CoinDetailsProcessor.LoadCoinDetails(apiHelper, selectedId);
+            CoinDetails = coinDetails;
+
+        }
+    }
+    
     private async Task LoadTickers(APIHelper apiHelper, string id)
     {
-        
+
         var tickers = await TickersProcessor.LoadTickersInfo(apiHelper, id);
 
         foreach (var ticker in tickers.Tickers)
         {
             TickersList.Add(ticker);
         }
-        
-        // MainWindowViewModel.SelectedItem = null;
+
     }
+
+    #endregion
     
+
 
     public CoinDetailViewModel()
     {
+        //Creating object of view to update UI
+        CoinDetailsView = new CoinDetailView();
+        CoinDetailsView.DataContext = this;
+        
         APIHelper apiHelper = new APIHelper();
         apiHelper.InitializeClient();
+        //Get selected Id from MainWindowViewModel
         SelectedItem = MainWindowViewModel.SelectedItem.Id;
         TickersList = new ObservableCollection<Ticker>();
-        TickersList.Add(new Ticker
+
+        //Add hardcode ticker for tests
+        /*
+         TickersList.Add(new Ticker
         {
             Base = "Nan",
             Target = "nehh",
@@ -69,13 +93,15 @@ public class CoinDetailViewModel: ObservableObject
             Last = 12345,
             Trust_score = "green",
             Bid_ask_spread_percentage = 0.02,
-            Trade_url = "https://www.binance.com/en/trade/BTC_USDT?ref=37754157",
+            Trade_url = new Uri("https://www.binance.com/en/trade/BTC_USDT?ref=37754157"),
             coin_id = "nan",
             target_coin_id = "neh"
         });
+         */
+        
+        //Loading Info from API
+        LoadCoinDetails(apiHelper, SelectedItem);
         LoadTickers(apiHelper, SelectedItem);
 
-        LoadCoinDetails(apiHelper, SelectedItem);
     }
-
 }

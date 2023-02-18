@@ -16,6 +16,10 @@
       <Resource Include="Fonts\Itim-Regular.ttf" />
       <None Remove="Images\change_theme.png" />
       <Resource Include="Images\change_theme.png" />
+      <None Remove="Images\change_theme_white.png" />
+      <Resource Include="Images\change_theme_white.png" />
+      <None Remove="Images\coingecko_logo.png" />
+      <Resource Include="Images\coingecko_logo.png" />
     </ItemGroup>
 
     <ItemGroup>
